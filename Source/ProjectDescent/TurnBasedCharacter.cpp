@@ -122,13 +122,15 @@ bool ATurnBasedCharacter::Defend()
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Defense was played!"))
-		StatsStruct.Armor += (StatsStruct.Defense + ModStruct.ArmorMod);
+
+		//Plays the rest of the character's AP to defend.
+		ModStruct.APSpentThisAction = StatsStruct.CurrentActionPoints - StatsStruct.DefendAPBaseCost;
+		
+		StatsStruct.Armor += (StatsStruct.Defense + ModStruct.ArmorMod + (ModStruct.APSpentThisAction * ModStruct.ArmorModIncrement));
 		CommitAPSpentThisAction(1);
 
-		if (StatsStruct.CurrentActionPoints < StatsStruct.AttackAPBaseCost || StatsStruct.CurrentActionPoints < StatsStruct.DefendAPBaseCost)
-			return true;
-
-		return false;
+		// Playing Defend will end turn.
+		return true;
 	}
 }
 

@@ -10,8 +10,49 @@ UENUM(BlueprintType)
 enum ClassArchetype
 {
 	Rogue	UMETA(DisplayName = "Rogue"),
-	Knight	UMETA(DisplayName = "Knight")
+	Knight	UMETA(DisplayName = "Knight"),
+	Mage	UMETA(DisplayName = "Mage")
 };
+
+USTRUCT(BlueprintType)
+struct FAbility
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FString Name;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 Damage;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 Accuracy;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 APCost;
+
+};
+
+USTRUCT(BlueprintType)
+struct FSpell
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FString Name;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 Strength;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 Accuracy;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 APCost;
+
+
+	UFUNCTION(BlueprintCallable)
+	void CastSpell()
+	{
+
+	}
+};
+
+
 
 USTRUCT(BlueprintType)
 struct FTurnStruct
@@ -89,7 +130,9 @@ struct FModStruct
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "ModVariables")
 	int32 AccuracyMod = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "ModVariables")
-	int32 ArmorMod = 2;
+	int32 ArmorMod = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "ModVariables")
+	int32 SpellMod = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ModVariables")
 	int32 AttackModIncrement = 2;
@@ -97,6 +140,8 @@ struct FModStruct
 	int32 AccuracyModIncrement = 5;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ModVariables")
 	int32 ArmorModIncrement = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ModVariables")
+	int32 SpellModIncrement = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "ModVariables")
 	int32 APSpentThisAction = 0;
